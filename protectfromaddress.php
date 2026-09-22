@@ -9,8 +9,8 @@ function protectfromaddress_civicrm_preProcess($formName, &$form) {
     case 'CRM_Event_Form_Task_Email':
     case 'CRM_Member_Form_Task_Email':
     case 'CRM_Contribute_Form_Task_Email':
-      $form->_emails = array();
-      $emails = array();
+      $form->_emails = [];
+      $emails = [];
       $domainEmails = CRM_Contact_Form_Task_EmailCommon::domainEmails();
       foreach ($domainEmails as $domainEmail => $email) {
         $form->_emails[$domainEmail] = $domainEmail;
@@ -19,8 +19,8 @@ function protectfromaddress_civicrm_preProcess($formName, &$form) {
       $form->_fromEmails = array_filter($form->_fromEmails);
       if (is_numeric(key($form->_fromEmails))) {
         // Add signature
-        $defaultEmail = civicrm_api3('email', 'getsingle', array('id' => key($form->_fromEmails)));
-        $defaults = array();
+        $defaultEmail = civicrm_api3('email', 'getsingle', ['id' => key($form->_fromEmails)]);
+        $defaults = [];
         if (!empty($defaultEmail['signature_html'])) {
           $defaults['html_message'] = '<br/><br/>--' . $defaultEmail['signature_html'];
         }
